@@ -1,5 +1,6 @@
 package com.cos.person.domain;
 
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -10,12 +11,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class JoinReqDto {
+public class UpdateReqDto {
 
-	@NotNull(message = "fail : 타이틀이 없습니다.")
-	@NotBlank(message = "fail : 타이틀을 입력하세요.")
-	private String title;
-	
+	@NotNull(message = "fail : 영화id가 없습니다.")
+	@NotBlank(message = "fail : 영화id 입력하세요.")
+	private int id;
 
-	private double rating;
 }

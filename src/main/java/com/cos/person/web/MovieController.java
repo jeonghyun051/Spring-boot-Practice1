@@ -2,7 +2,10 @@ package com.cos.person.web;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +18,6 @@ import com.cos.person.domain.CommonDto;
 import com.cos.person.domain.JoinReqDto;
 import com.cos.person.domain.Movie;
 import com.cos.person.domain.MovieRepository;
-
 
 @RestController
 public class MovieController {
@@ -42,7 +44,8 @@ private MovieRepository movieRepository; //지금은 null
 	}
 	
 	@PostMapping("/movie")
-	public CommonDto<String> save(@RequestBody JoinReqDto dto){
+	public CommonDto<?> save(@Valid @RequestBody JoinReqDto dto, BindingResult bindingResult){
+			
 		System.out.println("영화 추가하기 실행됨");
 		System.out.println("들어온 값 : " + dto);
 		
@@ -50,20 +53,18 @@ private MovieRepository movieRepository; //지금은 null
 	}
 	
 	@DeleteMapping("/movie/{id}")
-	public CommonDto<String> delte(@PathVariable int id){
+	public CommonDto<String> delte(@PathVariable int id ){
 		System.out.println("id로 영화 삭제하기 실행됨");			
 		System.out.println("들어온 값 : " + id);
 		return new CommonDto<>(HttpStatus.OK.value(),"ok");
 	}
 	
 	@PutMapping("/movie/{id}")
-	public CommonDto<String> update(@PathVariable int id){
+	public CommonDto<String> update(@PathVariable int id, @Valid @RequestBody JoinReqDto dto, BindingResult bindingResult){
 		System.out.println("id로 영화 수정하기 실행됨");
 		System.out.println("들어온 값 : " + id);
+		System.out.println("들어온 body값 : " + dto);
+		System.out.println(bindingResult);
 		return new CommonDto<>(HttpStatus.OK.value(),"ok");
 	}
-	
-	
-	
-	
 }
